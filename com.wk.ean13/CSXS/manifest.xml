@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest
         Version="4.0"
-        ExtensionBundleId="com.wk.ean13_224"
+        ExtensionBundleId="com.wk.ean13"
         ExtensionBundleVersion="2.2.4"
-        ExtensionBundleName="ean13_224"
+        ExtensionBundleName="ean13"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Author>
         <![CDATA[Marat Shagiev]]>
@@ -18,7 +18,7 @@
         <![CDATA[This is a generator of barcode ean13]]>
     </Abstract>
     <ExtensionList>
-        <Extension Id="com.wk.ean13_224" Version="2.2.4"/>
+        <Extension Id="com.wk.ean13" Version="2.2.4"/>
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
@@ -32,7 +32,7 @@
         </RequiredRuntimeList>
     </ExecutionEnvironment>
     <DispatchInfoList>
-        <Extension Id="com.wk.ean13_224">
+        <Extension Id="com.wk.ean13">
             <DispatchInfo>
                 <Resources>
                     <MainPath>./index.html</MainPath>
