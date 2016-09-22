@@ -241,33 +241,6 @@ function getFonts (chr) {
   return JSON.stringify (font);
 }
 
-function killCEP () {
-  /**
-   * make bat-file that kill all system processes CEPHTMLEngine.exe
-   */
-  _execFile (
-    Folder.temp.absoluteURI + '/' + 'taskkil.bat',
-    'taskkill /IM CEPHTMLEngine.exe /f'
-  );
-  /**
-   * make new file by full path, write to disk with some file contenr, execute file
-   *
-   * @param {String} filePath - FULL path (include file-extension)
-   * @param {String} fileContent - content to new file
-   */
-  function _execFile (filePath, fileContent) {
-    var f = new File (filePath);
-    f.open ('e');
-    f.write (fileContent);
-    f.close ();
-    f.execute ();
-  }
-}
-
-function showAppVers () {
-  alert (app.version);
-}
-
 /**
  * calculate top, bottom spasing and the real height of the capital characters
  *

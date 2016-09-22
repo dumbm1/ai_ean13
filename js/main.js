@@ -114,7 +114,7 @@
       reloadPanel ();
     }
     btnKillCEP.onclick = function () {
-      csInterface.evalScript ("killCEP();");
+      csInterface.closeExtension ();
     }
 
     /** * * * * * * * *

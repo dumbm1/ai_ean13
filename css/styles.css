@@ -1,212 +1,214 @@
 /* top right bottom left */
 /* top-bottom left-right */
 .message {
-    width: 100%;
-    text-align: center;
-    margin-top: 40px;
+  width:      100%;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .message-hide {
-    display: none;
+  display: none;
 }
 
 div {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #content {
-    box-sizing: content-box;
-    width: 195px;
-    margin: 5px auto;
+  box-sizing: content-box;
+  width:      195px;
+  margin:     5px auto;
 }
 
 .content-hide {
-    display: none;
+  display: none;
 }
 
 .block {
-    border-bottom: 1px solid rgba(0, 0, 0, .3);
-    border-top: 1px solid rgba(255, 255, 255, .2);
-    width: 195px;
-    padding: 4px 2px 4px 2px;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  border-top:    1px solid rgba(255, 255, 255, .2);
+  width:         195px;
+  padding:       4px 2px 4px 2px;
 }
 
 .main {
-    width: 195px;
-    padding: 0px 2px 0px 2px;
+  width:   195px;
+  padding: 0px 2px 0px 2px;
 }
 
 .main-close {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .footer {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .footer-close {
-    border-top: none;
+  border-top: none;
 }
 
 .row {
-    width: 190px;
-    height: 24px;
-    padding: 1px 0;
+  width:   190px;
+  height:  24px;
+  padding: 1px 0;
 }
 
 .row:last-child {
-    border: none;
+  border: none;
 }
+
 .settings-close {
-    display: none;
+  display: none;
 }
 
 .hostButton {
-    border: 1px solid;
-    border-radius: 2px;
-    height: 20px;
-    font-family: inherit;
-    color: inherit;
-    font-size: inherit;
+  border:        1px solid;
+  border-radius: 2px;
+  height:        20px;
+  font-family:   inherit;
+  color:         inherit;
+  font-size:     inherit;
+  overflow:      hidden;
 }
 
 #btns_bott {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 #btn_gen {
-    font-weight: bold;
-    width: 80px;
-    float: left;
-    margin-right: 4px;
+  font-weight:  bold;
+  width:        80px;
+  float:        left;
+  margin-right: 4px;
 }
 
 #btn_save {
-    width: 55px;
+  width: 55px;
 }
 
 #btn_defaults {
-    width: 45px;
-    float: right;
-    margin-left: 3px;
+  width:       45px;
+  float:       right;
+  margin-left: 3px;
 }
 
 #btn_killCEP {
-    width: 93px;
-    float: right;
+  width:    93px;
+  float:    right;
 }
 
 #btn_refresh {
-    width: 93px;
-    float: left;
+  width:    93px;
+  float:    left;
 }
 
 input {
-    box-sizing: border-box;
-    display: inline-block;
+  box-sizing: border-box;
+  display:    inline-block;
 }
 
 input[type=checkbox].ch_base {
-    opacity: 1;
-    display: inline-block;
-    position: relative;
-    margin: 3px 0 0 -1px;
+  opacity:  1;
+  display:  inline-block;
+  position: relative;
+  margin:   3px 0 0 -1px;
 }
 
 input[type=radio].rd_base {
-    opacity: 1;
-    display: inline-block;
-    position: relative;
-    margin: 3px 0 0 -1px;
+  opacity:  1;
+  display:  inline-block;
+  position: relative;
+  margin:   3px 0 0 -1px;
 }
 
 input[type=text] {
-    border: 1px solid rgba(0, 0, 0, .4);
-    height: 20px;
+  border: 1px solid rgba(0, 0, 0, .4);
+  height: 20px;
 }
 
 input[type=number] {
-    border: 1px solid rgba(0, 0, 0, .4);
-    margin: 1px 2px 0 0;
-    height: 20px;
+  border: 1px solid rgba(0, 0, 0, .4);
+  margin: 1px 2px 0 0;
+  height: 20px;
 }
 
 .txt_fld {
-    text-align: center;
-    height: 19px;
+  text-align: center;
+  height:     19px;
 }
 
 #code_val {
-    width: 100px;
-    font-weight: bold;
+  width:       100px;
+  font-weight: bold;
 }
 
 #lay_name_val {
-    width: 124px;
+  width: 124px;
 }
 
 #reduce_val {
-    display: inline-block;
-    width: 50px;
+  display: inline-block;
+  width:   50px;
 }
 
 .label {
-    display: inline-block;
-    vertical-align: middle;
-    height: 16px;
-    padding: 4px 0 0 0;
-    padding-right: 5px;
+  display:        inline-block;
+  vertical-align: middle;
+  height:         16px;
+  padding:        4px 0 0 0;
+  padding-right:  5px;
 }
 
 .lbl_fld {
-    width: 58px;
-    text-align: right;
+  width:      58px;
+  text-align: right;
 }
 
 #sel_font {
-    width: 169px;
-    height: 20px;
-    margin: 1px 0 0 0;
-    float: right;
+  width:  169px;
+  height: 20px;
+  margin: 1px 0 0 0;
+  float:  right;
 }
 
 #lbl_fonts {
-    display: inline-block;
-    box-sizing: border-box;
-    padding-left: 2px;
-    font-weight: bold;
-    font-size: 1.6em;
-    text-align: right;
-    padding-right: 2px;
-    border-bottom: 1px solid;
-    margin-bottom: 11px;
+  display:       inline-block;
+  box-sizing:    border-box;
+  padding-left:  2px;
+  font-weight:   bold;
+  font-size:     1.6em;
+  text-align:    right;
+  padding-right: 2px;
+  border-bottom: 1px solid;
+  margin-bottom: 11px;
 }
 
 .lbl_table {
-    width: 65px;
+  width: 65px;
 }
 
 #enter_code_row {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #check_digit {
-    margin: 0 0 0 4px;
+  margin: 0 0 0 4px;
 }
 
 .settings-title {
-    font-weight: bold;
-    margin: 1px -15px 0 0;
-    height: 18px;
-    width: 195px;
-    padding: 2px 2px 0 0;
-    border-bottom: 1px solid rgba(0, 0, 0, .4);
+  font-weight:   bold;
+  margin:        1px -15px 0 0;
+  height:        18px;
+  width:         195px;
+  padding:       2px 2px 0 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
 }
 
 .settings-title:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .settings-title span {
-    margin-left: 4px;
+  margin-left: 4px;
 }

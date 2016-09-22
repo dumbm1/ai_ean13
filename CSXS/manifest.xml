@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest
         Version="4.0"
-        ExtensionBundleId="com.wk.ean13"
-        ExtensionBundleVersion="2.2.4"
-        ExtensionBundleName="ean13"
+        ExtensionBundleId="com.wk.ai_ean13_wk"
+        ExtensionBundleVersion="2.3"
+        ExtensionBundleName="ai_ean13_wk"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Author>
         <![CDATA[Marat Shagiev]]>
@@ -14,11 +14,11 @@
     <Legal>
         <![CDATA[Legal stuff...]]>
     </Legal>
-    <Abstract href="#">
-        <![CDATA[This is a generator of barcode ean13]]>
+    <Abstract href="https://github.com/dumbm1/ai_ean13">
+        <![CDATA[Sample EAN-13 vector bar code generator for Adobe Illustrator]]>
     </Abstract>
     <ExtensionList>
-        <Extension Id="com.wk.ean13" Version="2.2.4"/>
+        <Extension Id="com.wk.ai_ean13_wk" Version="2.3"/>
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
@@ -32,7 +32,7 @@
         </RequiredRuntimeList>
     </ExecutionEnvironment>
     <DispatchInfoList>
-        <Extension Id="com.wk.ean13">
+        <Extension Id="com.wk.ai_ean13_wk">
             <DispatchInfo>
                 <Resources>
                     <MainPath>./index.html</MainPath>
@@ -43,14 +43,14 @@
                 </Lifecycle>
                 <UI>
                     <Type>Panel</Type>
-                    <Menu>ean 13 v2.2.4</Menu>
+                    <Menu>ai_ean13_wk 2.3</Menu>
                     <Geometry>
                         <Size>
-                            <Height>280</Height>
+                            <Height>295</Height>
                             <Width>215</Width>
                         </Size>
                         <MinSize>
-                            <Height>90</Height>
+                            <Height>110</Height>
                             <Width>215</Width>
                         </MinSize>
                         <MaxSize>
