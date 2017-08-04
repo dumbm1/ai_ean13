@@ -152,7 +152,7 @@
       opts.chAddBg  = false;
       opts.chNewLay = false;
 
-      opts.reduceVal            = "0.00";
+      opts.reduceVal            = "0";
       opts.layNameVal           = "";
       opts.layNameDisabled      = true;
       opts.fontName             = "";

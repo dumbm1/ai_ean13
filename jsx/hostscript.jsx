@@ -1,6 +1,6 @@
 //encoding table: L R G; R = _mirror ( L ); G = _reverse ( _mirror ( L ) )
 
-function makeEan13 (o) {
+function makeEan13(o) {
 
   var code       = o.str,
       led        = o.chLed,
@@ -21,7 +21,7 @@ function makeEan13 (o) {
 
   var encodeString,
       symbol,
-      col          = new CMYKColor (),
+      col          = new CMYKColor(),
       MM_TO_PT     = 2.834645669,
       PT_TO_MM     = 0.352777778,
       structure    = [
@@ -32,76 +32,78 @@ function makeEan13 (o) {
       BAR_H        = 22.85,
       BAR_SEP_H    = 24.5;
 
-  reduceVal = parseFloat (reduceVal) * MM_TO_PT;
+  reduceVal = parseFloat(reduceVal) * MM_TO_PT;
 
   col.black = 100;
 
-  encodeString = _makeEncodeStr (code);
-  symbol       = _makeBars (encodeString);
-  _makeDigits (code, symbol);
+  encodeString = _makeEncodeStr(code);
+  symbol       = _makeBars(encodeString);
+  _makeDigits(code, symbol);
 
   if (chAddBg == true) {
-    var rect = _makeRect (symbol.top, -3.34 * MM_TO_PT, 38 * MM_TO_PT, symbol.height, symbol, 0, new CMYKColor ());
-    rect.move (symbol, ElementPlacement.PLACEATEND);
-    rect.resize (100, 101, true, true, true, true, undefined, Transformation.CENTER);
+    var rect = _makeRect(symbol.top, (-3.63 ) * MM_TO_PT, 37.29 * MM_TO_PT, 25.93 * MM_TO_PT/*symbol.height*/, symbol, 0, new CMYKColor());
+    rect.move(symbol, ElementPlacement.PLACEATEND);
+    // rect.resize(100, 101, true, true, true, true, undefined, Transformation.CENTER);
     rect.stroked = false;
   }
 
   if (ch_center == true) {
-    executeMenuCommand ('deselectall');
+    executeMenuCommand('deselectall');
     symbol.selected = true;
-    cut ();
-    paste ();
+    cut();
+    paste();
     if (ch_select == false) {
-      executeMenuCommand ('deselectall');
+      executeMenuCommand('deselectall');
     }
   }
   if (ch_select == true && ch_center == false) {
-    executeMenuCommand ('deselectall');
+    executeMenuCommand('deselectall');
     symbol.selected = true;
   }
 
-  function _makeDigits (code, digGroup) {
-    var digGr        = digGroup.groupItems.add ();
-    var startTop     = -(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT,
+  function _makeDigits(code, digGroup) {
+    var digGr        = digGroup.groupItems.add();
+    var startTop     = -(BAR_H + 0.17) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
         realTop      = startTop;
     var left_fr0     = -3 * MM_TO_PT;
-    var startFntSize = 11,
+    var startFntSize = 13,
         realFntSize  = startFntSize,
-        fntH         = 6.8,
+        fntH         = 7.8,
         middTxtW     = 38.211,
         left_fr1     = 3.74,
         left_fr2     = 46.772,
         left_fr3     = 89.924;
 
     // this function lounch (o.tune == true) is changing realTop and realFntSize values
-    var digFr_1 = __addDig ({
-      cont: code.slice (1, 7), leftPnt: left_fr1, justify: 'center', tune: true
+    var digFr_1 = __addDig({
+      cont: code.slice(1, 7), leftPnt: left_fr1, justify: 'center', tune: true
     });
-    var digFr_2 = __addDig ({
-      cont: code.slice (7), leftPnt: left_fr2, justify: 'center', tune: false
+    var digFr_2 = __addDig({
+      cont: code.slice(7), leftPnt: left_fr2, justify: 'center', tune: false
     });
-    var digFr_0 = __addDig ({
-      cont: code.slice (0, 1), leftPnt: left_fr0, justify: 'left', tune: false
+    var digFr_0 = __addDig({
+      cont: code.slice(0, 1), leftPnt: left_fr0, justify: 'left', tune: false
     });
     if (led == true) {
-      var digFr_3 = __addDig ({
+      var digFr_3 = __addDig({
         cont: '>', leftPnt: left_fr3, justify: 'right', tune: false
       });
     }
 
-    function __addDig (o /*o.cont, o.leftPnt, o.justify, o.tune*/) {
-      var pntTxt = digGr.textFrames.add ();
+    function __addDig(o /*o.cont, o.leftPnt, o.justify, o.tune*/) {
+      var pntTxt = digGr.textFrames.add();
 
       pntTxt.textRange.size                          = realFntSize;
       pntTxt.contents                                = o.cont;
       pntTxt.textRange.characterAttributes.fillColor = col;
+      pntTxt.textRange.characterAttributes.tracking  = -100;
 
       try {
-        pntTxt.textRange.characterAttributes.textFont = textFonts.getByName (fntName);
+        pntTxt.textRange.characterAttributes.textFont = textFonts.getByName(fntName);
       } catch (e) {
         pntTxt.textRange.characterAttributes.textFont = textFonts[0];
       }
+
 
       switch (o.justify) {
         case 'left_fr0':
@@ -125,11 +127,11 @@ function makeEan13 (o) {
       }
 
       if (o.tune == true) {
-        while (calcCharSize (pntTxt).h > fntH) {
-          realFntSize -= 0.2;
+        while (calcCharSize(pntTxt).h > fntH) {
+          realFntSize -= 0.1;
           pntTxt.textRange.size = realFntSize;
         }
-        realTop = startTop + calcCharSize (pntTxt).top;
+        realTop = startTop + calcCharSize(pntTxt).top;
       }
 
       pntTxt.top = realTop;
@@ -140,19 +142,19 @@ function makeEan13 (o) {
 
   }
 
-  function _makeBars (str) {
+  function _makeBars(str) {
     var newLay,
         codeGroup,
         barsGroup;
 
     if (chNewLay == true) {
-      newLay      = activeDocument.layers.add ();
+      newLay      = activeDocument.layers.add();
       newLay.name = layNameVal;
-      codeGroup   = newLay.groupItems.add ();
-      barsGroup   = codeGroup.groupItems.add ();
+      codeGroup   = newLay.groupItems.add();
+      barsGroup   = codeGroup.groupItems.add();
     } else {
-      codeGroup = activeDocument.activeLayer.groupItems.add ();
-      barsGroup = codeGroup.groupItems.add ();
+      codeGroup = activeDocument.activeLayer.groupItems.add();
+      barsGroup = codeGroup.groupItems.add();
     }
 
     var x                                    = .33 * MM_TO_PT,
@@ -161,7 +163,7 @@ function makeEan13 (o) {
       if (str[i] == '0') {
         if (width) {
           str [i - 1] == '7' ? height = BAR_SEP_H * MM_TO_PT : height = BAR_H * MM_TO_PT;
-          _makeRect (top, left, width, height, barsGroup, reduceVal, col);
+          _makeRect(top, left, width, height, barsGroup, reduceVal, col);
           left += width + x;
           width = 0;
           continue;
@@ -175,50 +177,50 @@ function makeEan13 (o) {
     }
     if (width) {
       height = BAR_SEP_H * MM_TO_PT;
-      _makeRect (top, left, width, height, barsGroup, reduceVal, col);
+      _makeRect(top, left, width, height, barsGroup, reduceVal, col);
     }
     return codeGroup;
   }
 
-  function _makeEncodeStr (code) {
+  function _makeEncodeStr(code) {
     var resultStr = '707';
     var structStr = structure [+code [0]];
-    var codeStart = code.slice (1, 7);
+    var codeStart = code.slice(1, 7);
     for (var i = 0; i < codeStart.length; i++) {
       switch (structStr [i]) {
         case 'L':
           resultStr += encodeDigits [codeStart [i]];
           break;
         case 'G':
-          resultStr += _reverse (_mirror (encodeDigits [codeStart [i]]));
+          resultStr += _reverse(_mirror(encodeDigits [codeStart [i]]));
           break;
         default:
           break;
       }
     }
     resultStr += '07070';
-    var codeEnd = code.slice (7);
+    var codeEnd = code.slice(7);
     for (var j = 0; j < codeEnd.length; j++) {
-      resultStr += _mirror (encodeDigits[codeEnd[j]])
+      resultStr += _mirror(encodeDigits[codeEnd[j]])
     }
     resultStr += '707';
     return resultStr;
   }
 
-  function _makeRect (top, left, width, height, container, reduce, col) {
+  function _makeRect(top, left, width, height, container, reduce, col) {
     container      = container || activeDocument.activeLayer;
-    var rect       = container.pathItems.rectangle (top, left, width + reduce, height);
+    var rect       = container.pathItems.rectangle(top, left, width + reduce, height);
     rect.stroked   = false;
     rect.fillColor = col;
 
     return rect;
   }
 
-  function _reverse (str) {
-    return str.split ('').reverse ().join ('');
+  function _reverse(str) {
+    return str.split('').reverse().join('');
   }
 
-  function _mirror (str) {
+  function _mirror(str) {
     var mirStr = '';
     for (var i = 0; i < str.length; i++) {
       str[i] == '1' ? mirStr += '0' : mirStr += '1';
@@ -229,7 +231,7 @@ function makeEan13 (o) {
   return encodeString;
 }
 
-function getFonts (chr) {
+function getFonts(chr) {
   var font = {};
   for (var i = 0; i < textFonts.length; i++) {
     font[i] = {
@@ -238,7 +240,7 @@ function getFonts (chr) {
       name:   textFonts[i].name
     }
   }
-  return JSON.stringify (font);
+  return JSON.stringify(font);
 }
 
 /**
@@ -247,8 +249,8 @@ function getFonts (chr) {
  * @param {TextFrameItem} frame - object of the TextFrameItem class
  * @return {Object} fntMeas - result object {h, top, bot, w}
  */
-function calcCharSize (frame) {
-  var txt     = activeDocument.activeLayer.textFrames.add (),
+function calcCharSize(frame) {
+  var txt     = activeDocument.activeLayer.textFrames.add(),
       fullH,
       fntMeas = {};
 
@@ -257,16 +259,16 @@ function calcCharSize (frame) {
   txt.textRange.characterAttributes.textFont = frame.textRange.characterAttributes.textFont;
   txt.textRange.characterAttributes.size     = frame.textRange.characterAttributes.size;
 
-  var txtCurv = (txt.duplicate ()).createOutline ();
+  var txtCurv = (txt.duplicate()).createOutline();
 
   fullH       = txt.height;
   fntMeas.h   = txtCurv.height;
-  fntMeas.top = Math.abs (txt.position[1] - txtCurv.position[1]);
+  fntMeas.top = Math.abs(txt.position[1] - txtCurv.position[1]);
   fntMeas.bot = (fullH - fntMeas.h - fntMeas.top);
   fntMeas.w   = txtCurv.w;
 
-  txt.remove ();
-  txtCurv.remove ();
+  txt.remove();
+  txtCurv.remove();
 
   return fntMeas;
 }
