@@ -63,7 +63,7 @@ function makeEan13(o) {
 
   function _makeDigits(code, digGroup) {
     var digGr        = digGroup.groupItems.add();
-    var startTop     = -(BAR_H + 0.17) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
+    var startTop     = -(BAR_H + 0.25) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
         realTop      = startTop;
     var left_fr0     = -3 * MM_TO_PT;
     var startFntSize = 13,
