@@ -1,55 +1,57 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
 /*global $, window, location, CSInterface, SystemPath, themeManager*/
 
-(function () {
+(function() {
   'use strict';
 
-  var csInterface = new CSInterface ();
-  init ();
+  var csInterface = new CSInterface();
+  init();
 
-  function init () {
+  function init() {
 
-    themeManager.init ();
+    themeManager.init();
 
-    loadJSX ("json2.js");
+    loadJSX("json2.js");
 
-    var btnGen      = document.getElementById ("btn_gen"),
-        btnSave     = document.getElementById ('btn_save'),
-        btnDefaults = document.getElementById ('btn_defaults'),
-        btnRefresh  = document.getElementById ('btn_refresh'),
-        btnKillCEP  = document.getElementById ('btn_killCEP');
+    var btnGen      = document.getElementById("btn_gen"),
+        btnSave     = document.getElementById('btn_save'),
+        btnDefaults = document.getElementById('btn_defaults'),
+        btnRefresh  = document.getElementById('btn_refresh'),
+        btnKillCEP  = document.getElementById('btn_killCEP');
 
-    var digField   = document.getElementById ('code_val'),
-        checkDigit = document.getElementById ('check_digit'),
-        chNewLay   = document.getElementById ('ch_new_lay'),
-        layNameVal = document.getElementById ('lay_name_val');
+    var digField   = document.getElementById('code_val'),
+        checkDigit = document.getElementById('check_digit'),
+        chNewLay   = document.getElementById('ch_new_lay'),
+        layNameVal = document.getElementById('lay_name_val');
 
-    var settingsTitleElem   = document.getElementById ('settings_title'),
-        settingsContentElem = document.getElementById ('settings');
+    var settingsTitleElem   = document.getElementById('settings_title'),
+        settingsContentElem = document.getElementById('settings');
 
-    (function showWaitMessage () {
-      document.body.className                           = 'hostElt hostBody';
-      document.getElementById ('content').className     = 'content-hide';
-      document.getElementById ('message_elt').className = 'message';
-    } ());
+    (function showWaitMessage() {
+      document.body.className                          = 'hostElt hostBody';
+      document.getElementById('content').className     = 'content-hide';
+      document.getElementById('message_elt').className = 'message';
+    }());
 
-    csInterface.evalScript ('getFonts()', function (result) {
-      var opts     = makeDefaultOpts ();
-      var fontList = JSON.parse (result);
+    csInterface.evalScript('getFonts()', function(result) {
+      var opts     = makeDefaultOpts();
+      var fontList = JSON.parse(result);
 
-      insertFontList (fontList);
+      insertFontList(fontList);
 
-      if (JSON.parse (localStorage.getItem ("opts")) != null) {
-        opts = JSON.parse (localStorage.getItem ("opts"))
+      if (JSON.parse(localStorage.getItem("opts")) != null) {
+        opts = JSON.parse(localStorage.getItem("opts"));
+      } else {
+
       }
 
-      setPanOpts (opts);
+      setPanOpts(opts);
 
-      (function hideWaitMessage () {
-        document.body.className                           = 'hostElt';
-        document.getElementById ('content').className     = '';
-        document.getElementById ('message_elt').className = 'message message-hide';
-      } ());
+      (function hideWaitMessage() {
+        document.body.className                          = 'hostElt';
+        document.getElementById('content').className     = '';
+        document.getElementById('message_elt').className = 'message message-hide';
+      }());
 
     });
 
@@ -57,29 +59,29 @@
      * * * HANDLERS * * *
      * * * * * * * * * **/
 
-    digField.addEventListener ('input', controlEnterDigits);
+    digField.addEventListener('input', controlEnterDigits);
 
-    btnGen.onclick = function () {
+    btnGen.onclick = function() {
       var opts;
-      var digStr = document.getElementById ('code_val').value;
+      var digStr = document.getElementById('code_val').value;
 
       if (digStr.length == 12) {
-        opts     = getPanOpts ();
+        opts     = getPanOpts();
         opts.str = digStr + checkDigit.innerHTML;
-        csInterface.evalScript ('makeEan13(' + JSON.stringify (opts) + ')');
+        csInterface.evalScript('makeEan13(' + JSON.stringify(opts) + ')');
       }
     }
 
-    digField.onkeyup = function (e) {
-      var digStr = document.getElementById ('code_val').value;
+    digField.onkeyup = function(e) {
+      var digStr = document.getElementById('code_val').value;
       if (digStr.length == 12) {
-        checkDigit.innerHTML = calcCheсkDigit (digStr);
+        checkDigit.innerHTML = calcCheсkDigit(digStr);
       } else {
         checkDigit.innerHTML = 'X';
       }
     }
 
-    chNewLay.onclick = function () {
+    chNewLay.onclick = function() {
       if (layNameVal.disabled == false) {
         layNameVal.disabled = true;
         return;
@@ -88,7 +90,7 @@
       return;
     }
 
-    settingsTitleElem.onclick = function () {
+    settingsTitleElem.onclick = function() {
 
       if (settingsContentElem.className != 'settings-close') {
         settingsContentElem.className = 'settings-close';
@@ -97,32 +99,36 @@
       settingsContentElem.className = '';
     }
 
-    btnDefaults.onclick = function () {
-      var opts = makeDefaultOpts ();
-      localStorage.clear ();
-      document.getElementById ('code_val').value        = '';
-      document.getElementById ('check_digit').innerHTML = 'X';
-      setPanOpts (opts);
-      reloadPanel ();
+    btnDefaults.onclick = function() {
+      var opts = makeDefaultOpts();
+      localStorage.clear();
+      document.getElementById('code_val').value        = '';
+      document.getElementById('check_digit').innerHTML = 'X';
+      setPanOpts(opts);
+      reloadPanel();
     }
 
-    btnSave.onclick = function () {
-      localStorage.setItem ("opts", JSON.stringify (getPanOpts ()));
+    btnSave.onclick = function() {
+      localStorage.setItem("opts", JSON.stringify(getPanOpts()));
+      // alert(localStorage.getItem("opts"));
+      var opts = getPanOpts();
+      writeIni(opts);
+
     }
 
-    btnRefresh.onclick = function () {
-      reloadPanel ();
+    btnRefresh.onclick = function() {
+      reloadPanel();
     }
-    btnKillCEP.onclick = function () {
-      csInterface.closeExtension ();
+    btnKillCEP.onclick = function() {
+      csInterface.closeExtension();
     }
 
     /** * * * * * * * *
      * * * MY LIB * * *
      * * * * * * * * **/
-    function controlEnterDigits () {
+    function controlEnterDigits() {
       var re         = /[^\d]/gmi; // only digits
-      digField.value = ((digField.value).replace (re, '')).slice (0, 12);
+      digField.value = ((digField.value).replace(re, '')).slice(0, 12);
     }
 
     /**
@@ -131,17 +137,17 @@
      * @param {String} str 12 цифр кода
      * @return {Number} check_digit 13-я контрольная цифра
      * */
-    function calcCheсkDigit (str) {
+    function calcCheсkDigit(str) {
       var x = 0, y = 0, z = 0, checkDigit;
       for (var i = 0; i < str.length; i++) {
-        (i % 2 != 0) ? x += +str.slice (i, i + 1) : y += +str.slice (i, i + 1);
+        (i % 2 != 0) ? x += +str.slice(i, i + 1) : y += +str.slice(i, i + 1);
       }
       z = 3 * x + y;
       (z % 10 == 0) ? checkDigit = 0 : checkDigit = (10 - (z + 10 ) % 10);
       return checkDigit;
     }
 
-    function makeDefaultOpts () {
+    function makeDefaultOpts() {
       var opts = {}
 
       opts.str = "";
@@ -161,42 +167,42 @@
       return opts;
     }
 
-    function getPanOpts () {
+    function getPanOpts() {
       var opts             = {};
-      opts.chLed           = document.getElementById ('ch_led').checked;
-      opts.chCenter        = document.getElementById ('ch_center').checked;
-      opts.chSelect        = document.getElementById ('ch_select').checked;
-      opts.chNewLay        = document.getElementById ('ch_new_lay').checked;
-      opts.chAddBg         = document.getElementById ('ch_add_bg').checked;
-      opts.reduceVal       = document.getElementById ('reduce_val').value;
-      opts.layNameVal      = document.getElementById ('lay_name_val').value;
-      opts.layNameDisabled = document.getElementById ('lay_name_val').disabled;
+      opts.chLed           = document.getElementById('ch_led').checked;
+      opts.chCenter        = document.getElementById('ch_center').checked;
+      opts.chSelect        = document.getElementById('ch_select').checked;
+      opts.chNewLay        = document.getElementById('ch_new_lay').checked;
+      opts.chAddBg         = document.getElementById('ch_add_bg').checked;
+      opts.reduceVal       = document.getElementById('reduce_val').value;
+      opts.layNameVal      = document.getElementById('lay_name_val').value;
+      opts.layNameDisabled = document.getElementById('lay_name_val').disabled;
 
-      var selFont   = document.getElementById ('sel_font');
+      var selFont   = document.getElementById('sel_font');
       opts.fontName = selFont[selFont.selectedIndex].text;
 
-      opts.settingsDisplayClass = document.getElementById ('settings').className;
+      opts.settingsDisplayClass = document.getElementById('settings').className;
 
       return opts;
     }
 
-    function setPanOpts (opts) {
+    function setPanOpts(opts) {
 
-      document.getElementById ('ch_led').checked        = opts.chLed;
-      document.getElementById ('ch_center').checked     = opts.chCenter;
-      document.getElementById ('ch_select').checked     = opts.chSelect;
-      document.getElementById ('ch_new_lay').checked    = opts.chNewLay;
-      document.getElementById ('ch_add_bg').checked     = opts.chAddBg;
-      document.getElementById ('reduce_val').value      = opts.reduceVal;
-      document.getElementById ('lay_name_val').value    = opts.layNameVal;
-      document.getElementById ('lay_name_val').disabled = opts.layNameDisabled;
+      document.getElementById('ch_led').checked        = opts.chLed;
+      document.getElementById('ch_center').checked     = opts.chCenter;
+      document.getElementById('ch_select').checked     = opts.chSelect;
+      document.getElementById('ch_new_lay').checked    = opts.chNewLay;
+      document.getElementById('ch_add_bg').checked     = opts.chAddBg;
+      document.getElementById('reduce_val').value      = opts.reduceVal;
+      document.getElementById('lay_name_val').value    = opts.layNameVal;
+      document.getElementById('lay_name_val').disabled = opts.layNameDisabled;
 
-      _selectOptByText (opts.fontName, 'sel_font');
+      _selectOptByText(opts.fontName, 'sel_font');
 
-      document.getElementById ('settings').className = opts.settingsDisplayClass;
+      document.getElementById('settings').className = opts.settingsDisplayClass;
 
-      function _selectOptByText (text, selectId) {
-        var obj = document.getElementById (selectId).options;
+      function _selectOptByText(text, selectId) {
+        var obj = document.getElementById(selectId).options;
 
         for (var key in obj) {
 
@@ -208,12 +214,12 @@
       }
     }
 
-    function insertFontList (fontList) {
+    function insertFontList(fontList) {
       for (var key in fontList) {
-        var optFont       = document.createElement ('option');
+        var optFont       = document.createElement('option');
         optFont.innerHTML = fontList[key].name;
         optFont.selected  = false;
-        document.getElementById ("sel_font").appendChild (optFont);
+        document.getElementById("sel_font").appendChild(optFont);
       }
     }
 
@@ -223,13 +229,27 @@
    * * * NATIVE LIB * * *
    * * * * * * * * * * **/
   // Reloads extension panel
-  function reloadPanel () {
-    location.reload ();
+  function reloadPanel() {
+    location.reload();
   }
 
-  function loadJSX (fileName) {
-    var extensionRoot = csInterface.getSystemPath (SystemPath.EXTENSION) + "/jsx/";
-    csInterface.evalScript ('$.evalFile("' + extensionRoot + fileName + '")');
+  function loadJSX(fileName) {
+    var extensionRoot = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/";
+    csInterface.evalScript('$.evalFile("' + extensionRoot + fileName + '")');
   }
 
-} ());
+  function readIni () {
+    csInterface.evalScript ( 'readIni()', function ( result ) {
+      opts = JSON.parse ( result );
+    } );
+  }
+
+  function writeIni (opts) {
+    csInterface.evalScript ( 'writeIni(' + JSON.stringify ( opts ) + ')' );
+  }
+
+  function deleteIni () {
+    csInterface.evalScript ( 'delIni()' );
+  }
+
+}());

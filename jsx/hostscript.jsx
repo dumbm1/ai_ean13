@@ -104,7 +104,6 @@ function makeEan13(o) {
         pntTxt.textRange.characterAttributes.textFont = textFonts[0];
       }
 
-
       switch (o.justify) {
         case 'left_fr0':
           // !!! Justification.LEFT is not working
@@ -272,3 +271,4 @@ function calcCharSize(frame) {
 
   return fntMeas;
 }
+
