@@ -272,3 +272,83 @@ function calcCharSize(frame) {
   return fntMeas;
 }
 
+function writeIni ( jsonStr ) {
+
+  var iniFile = _addIni ();
+  var f = _writeIni ( JSON.stringify ( jsonStr ) );
+
+  return f.fullName;
+
+  function _addIni () {
+
+    var iniName              = 'ean13_v2-5',
+        localStoreFolderPath = Folder.userData + '/LocalStore/',
+        iniFolder,
+        iniFile;
+
+    iniFolder = new Folder ( localStoreFolderPath + iniName );
+    iniFolder.exists == false ? iniFolder.create () : '';
+    iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
+
+    return iniFile;
+  }
+
+  function _writeIni ( str ) {
+    if ( iniFile.exists ) {
+      var iniFullName = iniFile.fullName;
+      iniFile.remove ();
+      iniFile = new File ( iniFullName );
+    }
+
+    iniFile.open ( 'e' );
+    iniFile.writeln ( str );
+    iniFile.close ();
+
+    return iniFile;
+  }
+}
+
+function readIni () {
+  var str = 'Ups...';
+  var iniFile = _addIni ();
+
+  iniFile.open ( 'r' );
+  str = iniFile.read ();
+  iniFile.close ();
+
+  return str /*JSON.stringify(str)*/;
+
+  function _addIni () {
+
+    var iniName              = 'ean13_v2-5',
+        localStoreFolderPath = Folder.userData + '/LocalStore/',
+        iniFolder,
+        iniFile;
+
+    iniFolder = new Folder ( localStoreFolderPath + iniName );
+    iniFolder.exists == false ? iniFolder.create () : '';
+    iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
+
+    return iniFile;
+  }
+}
+
+function delIni () {
+  var iniName              = 'ean13_v2-5',
+      localStoreFolderPath = Folder.userData + '/LocalStore/',
+      iniFolder            = new Folder ( localStoreFolderPath + iniName ),
+      iniFile;
+
+  if ( !iniFolder.exists ) {
+    return;
+  }
+  iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
+  if ( !iniFile.exists ) {
+    return;
+  }
+  iniFile.remove ();
+  iniFolder.remove ();
+
+  return true;
+}
+

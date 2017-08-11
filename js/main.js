@@ -41,11 +41,13 @@
 
       if (JSON.parse(localStorage.getItem("opts")) != null) {
         opts = JSON.parse(localStorage.getItem("opts"));
+        setPanOpts(opts);
       } else {
-
+        opts = readIni();
+        alert(opts);
+        // opts = JSON.parse(opts);
+        // setPanOpts(opts);
       }
-
-      setPanOpts(opts);
 
       (function hideWaitMessage() {
         document.body.className                          = 'hostElt';
@@ -110,10 +112,8 @@
 
     btnSave.onclick = function() {
       localStorage.setItem("opts", JSON.stringify(getPanOpts()));
-      // alert(localStorage.getItem("opts"));
       var opts = getPanOpts();
       writeIni(opts);
-
     }
 
     btnRefresh.onclick = function() {
@@ -238,18 +238,18 @@
     csInterface.evalScript('$.evalFile("' + extensionRoot + fileName + '")');
   }
 
-  function readIni () {
-    csInterface.evalScript ( 'readIni()', function ( result ) {
-      opts = JSON.parse ( result );
-    } );
+  function readIni() {
+    csInterface.evalScript('readIni()', function(result) {
+      opts = JSON.parse(result);
+    });
   }
 
-  function writeIni (opts) {
-    csInterface.evalScript ( 'writeIni(' + JSON.stringify ( opts ) + ')' );
+  function writeIni(opts) {
+    csInterface.evalScript('writeIni(' + JSON.stringify(opts) + ')');
   }
 
-  function deleteIni () {
-    csInterface.evalScript ( 'delIni()' );
+  function deleteIni() {
+    csInterface.evalScript('delIni()');
   }
 
 }());
