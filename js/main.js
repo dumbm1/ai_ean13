@@ -38,16 +38,24 @@
       var fontList = JSON.parse(result);
 
       insertFontList(fontList);
-
+/*
       if (JSON.parse(localStorage.getItem("opts")) != null) {
         opts = JSON.parse(localStorage.getItem("opts"));
         setPanOpts(opts);
       } else {
-        opts = readIni();
-        alert(opts);
-        // opts = JSON.parse(opts);
-        // setPanOpts(opts);
-      }
+        csInterface.evalScript('readIni()', function(result) {
+          opts = JSON.parse(result);
+          alert(opts);
+          setPanOpts(opts);
+        });
+
+      }*/
+
+      csInterface.evalScript('readIni()', function(result) {
+        opts = JSON.parse(result);
+       // alert(opts);
+        setPanOpts(opts);
+      });
 
       (function hideWaitMessage() {
         document.body.className                          = 'hostElt';
@@ -111,7 +119,7 @@
     }
 
     btnSave.onclick = function() {
-      localStorage.setItem("opts", JSON.stringify(getPanOpts()));
+      // localStorage.setItem("opts", JSON.stringify(getPanOpts()));
       var opts = getPanOpts();
       writeIni(opts);
     }
