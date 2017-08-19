@@ -53,7 +53,6 @@
 
       csInterface.evalScript('readIni()', function(result) {
         opts = JSON.parse(result);
-       // alert(opts);
         setPanOpts(opts);
       });
 
@@ -110,12 +109,15 @@
     }
 
     btnDefaults.onclick = function() {
-      var opts = makeDefaultOpts();
-      localStorage.clear();
-      document.getElementById('code_val').value        = '';
-      document.getElementById('check_digit').innerHTML = 'X';
-      setPanOpts(opts);
-      reloadPanel();
+      csInterface.evalScript('delIni()', function(result) {
+        var opts = makeDefaultOpts();
+        localStorage.clear();
+        document.getElementById('code_val').value        = '';
+        document.getElementById('check_digit').innerHTML = 'X';
+        setPanOpts(opts);
+        reloadPanel();
+      });
+
     }
 
     btnSave.onclick = function() {
@@ -246,11 +248,6 @@
     csInterface.evalScript('$.evalFile("' + extensionRoot + fileName + '")');
   }
 
-  function readIni() {
-    csInterface.evalScript('readIni()', function(result) {
-      opts = JSON.parse(result);
-    });
-  }
 
   function writeIni(opts) {
     csInterface.evalScript('writeIni(' + JSON.stringify(opts) + ')');
