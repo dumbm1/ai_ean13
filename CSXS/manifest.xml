@@ -2,7 +2,7 @@
 <ExtensionManifest
         Version="4.0"
         ExtensionBundleId="com.wk.ai_ean13_wk"
-        ExtensionBundleVersion="2.5"
+        ExtensionBundleVersion="2.5.1"
         ExtensionBundleName="ai_ean13_wk"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Author>
@@ -18,7 +18,7 @@
         <![CDATA[Sample EAN-13 vector bar code generator for Adobe Illustrator]]>
     </Abstract>
     <ExtensionList>
-        <Extension Id="com.wk.ai_ean13_wk" Version="2.5"/>
+        <Extension Id="com.wk.ai_ean13_wk" Version="2.5.1"/>
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
@@ -43,7 +43,7 @@
                 </Lifecycle>
                 <UI>
                     <Type>Panel</Type>
-                    <Menu>ai_ean13_wk 2.5</Menu>
+                    <Menu>ai_ean13_wk 2.5.1</Menu>
                     <Geometry>
                         <Size>
                             <Height>295</Height>

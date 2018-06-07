@@ -37,7 +37,7 @@ function makeEan13(o) {
   col.black = 100;
 
   encodeString = _makeEncodeStr(code);
-  symbol       = _makeBars(encodeString);
+  symbol = _makeBars(encodeString);
   _makeDigits(code, symbol);
 
   if (chAddBg == true) {
@@ -62,10 +62,10 @@ function makeEan13(o) {
   }
 
   function _makeDigits(code, digGroup) {
-    var digGr        = digGroup.groupItems.add();
-    var startTop     = -(BAR_H + 0.25) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
-        realTop      = startTop;
-    var left_fr0     = -3 * MM_TO_PT;
+    var digGr = digGroup.groupItems.add();
+    var startTop = -(BAR_H + 0.25) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
+        realTop  = startTop;
+    var left_fr0 = -3 * MM_TO_PT;
     var startFntSize = 13,
         realFntSize  = startFntSize,
         fntH         = 7.8,
@@ -76,27 +76,27 @@ function makeEan13(o) {
 
     // this function lounch (o.tune == true) is changing realTop and realFntSize values
     var digFr_1 = __addDig({
-      cont: code.slice(1, 7), leftPnt: left_fr1, justify: 'center', tune: true
-    });
+                             cont: code.slice(1, 7), leftPnt: left_fr1, justify: 'center', tune: true
+                           });
     var digFr_2 = __addDig({
-      cont: code.slice(7), leftPnt: left_fr2, justify: 'center', tune: false
-    });
+                             cont: code.slice(7), leftPnt: left_fr2, justify: 'center', tune: false
+                           });
     var digFr_0 = __addDig({
-      cont: code.slice(0, 1), leftPnt: left_fr0, justify: 'left', tune: false
-    });
+                             cont: code.slice(0, 1), leftPnt: left_fr0, justify: 'left', tune: false
+                           });
     if (led == true) {
       var digFr_3 = __addDig({
-        cont: '>', leftPnt: left_fr3, justify: 'right', tune: false
-      });
+                               cont: '>', leftPnt: left_fr3, justify: 'right', tune: false
+                             });
     }
 
     function __addDig(o /*o.cont, o.leftPnt, o.justify, o.tune*/) {
       var pntTxt = digGr.textFrames.add();
 
-      pntTxt.textRange.size                          = realFntSize;
-      pntTxt.contents                                = o.cont;
+      pntTxt.textRange.size = realFntSize;
+      pntTxt.contents = o.cont;
       pntTxt.textRange.characterAttributes.fillColor = col;
-      pntTxt.textRange.characterAttributes.tracking  = -100;
+      pntTxt.textRange.characterAttributes.tracking = -100;
 
       try {
         pntTxt.textRange.characterAttributes.textFont = textFonts.getByName(fntName);
@@ -147,10 +147,10 @@ function makeEan13(o) {
         barsGroup;
 
     if (chNewLay == true) {
-      newLay      = activeDocument.layers.add();
+      newLay = activeDocument.layers.add();
       newLay.name = layNameVal;
-      codeGroup   = newLay.groupItems.add();
-      barsGroup   = codeGroup.groupItems.add();
+      codeGroup = newLay.groupItems.add();
+      barsGroup = codeGroup.groupItems.add();
     } else {
       codeGroup = activeDocument.activeLayer.groupItems.add();
       barsGroup = codeGroup.groupItems.add();
@@ -200,18 +200,18 @@ function makeEan13(o) {
     resultStr += '07070';
     var codeEnd = code.slice(7);
     for (var j = 0; j < codeEnd.length; j++) {
-      resultStr += _mirror(encodeDigits[codeEnd[j]])
+      resultStr += _mirror(encodeDigits[codeEnd[j]]);
     }
     resultStr += '707';
     return resultStr;
   }
 
   function _makeRect(top, left, width, height, container, reduce, col) {
-    container      = container || activeDocument.activeLayer;
-    var rect       = container.pathItems.rectangle(top, left, width + reduce, height);
-    rect.stroked   = false;
+    container = container || activeDocument.activeLayer;
+    var rect = container.pathItems.rectangle(top, left, width + reduce, height);
+    rect.stroked = false;
     rect.fillColor = col;
-
+    rect.fillOverprint = false;
     return rect;
   }
 
@@ -235,9 +235,9 @@ function getFonts(chr) {
   for (var i = 0; i < textFonts.length; i++) {
     font[i] = {
       family: textFonts[i].family,
-      style:  textFonts[i].style,
-      name:   textFonts[i].name
-    }
+      style : textFonts[i].style,
+      name  : textFonts[i].name
+    };
   }
   return JSON.stringify(font);
 }
@@ -253,18 +253,18 @@ function calcCharSize(frame) {
       fullH,
       fntMeas = {};
 
-  txt.contents                               = frame.contents;
+  txt.contents = frame.contents;
   // txt.contents                               = 'C';
   txt.textRange.characterAttributes.textFont = frame.textRange.characterAttributes.textFont;
-  txt.textRange.characterAttributes.size     = frame.textRange.characterAttributes.size;
+  txt.textRange.characterAttributes.size = frame.textRange.characterAttributes.size;
 
   var txtCurv = (txt.duplicate()).createOutline();
 
-  fullH       = txt.height;
-  fntMeas.h   = txtCurv.height;
+  fullH = txt.height;
+  fntMeas.h = txtCurv.height;
   fntMeas.top = Math.abs(txt.position[1] - txtCurv.position[1]);
   fntMeas.bot = (fullH - fntMeas.h - fntMeas.top);
-  fntMeas.w   = txtCurv.w;
+  fntMeas.w = txtCurv.w;
 
   txt.remove();
   txtCurv.remove();
@@ -272,82 +272,82 @@ function calcCharSize(frame) {
   return fntMeas;
 }
 
-function writeIni ( jsonStr ) {
+function writeIni(jsonStr) {
 
-  var iniFile = _addIni ();
-  var f = _writeIni ( JSON.stringify ( jsonStr ) );
+  var iniFile = _addIni();
+  var f = _writeIni(JSON.stringify(jsonStr));
 
   return f.fullName;
 
-  function _addIni () {
+  function _addIni() {
 
     var iniName              = 'ean13_v2-5',
         localStoreFolderPath = Folder.userData + '/LocalStore/',
         iniFolder,
         iniFile;
 
-    iniFolder = new Folder ( localStoreFolderPath + iniName );
-    iniFolder.exists == false ? iniFolder.create () : '';
-    iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
+    iniFolder = new Folder(localStoreFolderPath + iniName);
+    iniFolder.exists == false ? iniFolder.create() : '';
+    iniFile = new File(iniFolder + '/' + iniName + '.ini');
 
     return iniFile;
   }
 
-  function _writeIni ( str ) {
-    if ( iniFile.exists ) {
+  function _writeIni(str) {
+    if (iniFile.exists) {
       var iniFullName = iniFile.fullName;
-      iniFile.remove ();
-      iniFile = new File ( iniFullName );
+      iniFile.remove();
+      iniFile = new File(iniFullName);
     }
 
-    iniFile.open ( 'e' );
-    iniFile.writeln ( str );
-    iniFile.close ();
+    iniFile.open('e');
+    iniFile.writeln(str);
+    iniFile.close();
 
     return iniFile;
   }
 }
 
-function readIni () {
+function readIni() {
   var str = 'Ups...';
-  var iniFile = _addIni ();
+  var iniFile = _addIni();
 
-  iniFile.open ( 'r' );
-  str = iniFile.read ();
-  iniFile.close ();
+  iniFile.open('r');
+  str = iniFile.read();
+  iniFile.close();
 
   return str /*JSON.stringify(str)*/;
 
-  function _addIni () {
+  function _addIni() {
 
     var iniName              = 'ean13_v2-5',
         localStoreFolderPath = Folder.userData + '/LocalStore/',
         iniFolder,
         iniFile;
 
-    iniFolder = new Folder ( localStoreFolderPath + iniName );
-    iniFolder.exists == false ? iniFolder.create () : '';
-    iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
+    iniFolder = new Folder(localStoreFolderPath + iniName);
+    iniFolder.exists == false ? iniFolder.create() : '';
+    iniFile = new File(iniFolder + '/' + iniName + '.ini');
 
     return iniFile;
   }
 }
 
-function delIni () {
+function delIni() {
   var iniName              = 'ean13_v2-5',
       localStoreFolderPath = Folder.userData + '/LocalStore/',
-      iniFolder            = new Folder ( localStoreFolderPath + iniName ),
+      iniFolder            = new Folder(localStoreFolderPath + iniName),
       iniFile;
 
-  if ( !iniFolder.exists ) {
+  if (!iniFolder.exists) {
     return;
   }
-  iniFile = new File ( iniFolder + '/' + iniName + '.ini' );
-  if ( !iniFile.exists ) {
+  iniFile = new File(iniFolder + '/' + iniName + '.ini');
+  if (!iniFile.exists) {
     return;
   }
-  iniFile.remove ();
-  iniFolder.remove ();
+  iniFile.remove();
+  iniFolder.remove();
 
   return true;
 }
