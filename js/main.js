@@ -16,8 +16,7 @@
     var btnGen      = document.getElementById('btn_gen'),
         btnSave     = document.getElementById('btn_save'),
         btnDefaults = document.getElementById('btn_defaults'),
-        btnRefresh  = document.getElementById('btn_refresh'),
-        btnKillCEP  = document.getElementById('btn_killCEP');
+        btnRefresh  = document.getElementById('btn_refresh');
 
     var digField   = document.getElementById('code_val'),
         checkDigit = document.getElementById('check_digit'),
@@ -39,7 +38,10 @@
       }
 
       function storeCurrentCode() {
-        if (!digField.value) return;
+        if (!digField.value) {
+          localStorage.clear();
+          return;
+        }
         localStorage.setItem(_key, digField.value);
       }
 
@@ -60,19 +62,6 @@
       var fontList = JSON.parse(result);
 
       insertFontList(fontList);
-      /*
-       if (JSON.parse(localStorage.getItem("opts")) != null) {
-       opts = JSON.parse(localStorage.getItem("opts"));
-       setPanOpts(opts);
-       } else {
-       csInterface.evalScript('readIni()', function(result) {
-       opts = JSON.parse(result);
-       alert(opts);
-       setPanOpts(opts);
-       });
-
-       }*/
-
       csInterface.evalScript('readIni()', function (result) {
         opts = JSON.parse(result);
         lastCode.setLastCode();
@@ -159,16 +148,11 @@
     };
 
     btnSave.onclick = function () {
-      // localStorage.setItem("opts", JSON.stringify(getPanOpts()));
-      var opts = getPanOpts();
-      writeIni(opts);
+      writeIni(getPanOpts());
     };
 
     btnRefresh.onclick = function () {
       reloadPanel();
-    };
-    btnKillCEP.onclick = function () {
-      csInterface.closeExtension();
     };
 
     /** * * * * * * * *
@@ -288,10 +272,6 @@
 
   function writeIni(opts) {
     csInterface.evalScript('writeIni(' + JSON.stringify(opts) + ')');
-  }
-
-  function deleteIni() {
-    csInterface.evalScript('delIni()');
   }
 
   function _fitPanelToContent() {

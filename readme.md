@@ -1,7 +1,6 @@
-#EAN-13 bar code generator v2.3
-##[Illustrator CC+] HTML extension panel
-##Use:
-* Enter code to input field and push the push the `Generate` button.
-* Use the `Settings` header to expand/hide the panel settings.
-* Save the settings by clicking the `Save` button.
-* To minimize the panel you need to pull over its border or corner.
+Генератор Штрих-Кода по стандарту EAN-13
+===
+Выполненный в дизайне Панели Расширения для программы Adobe Illustrator CC+
+---
+Вот как я им пользуюсь (здесь должен быть ролик):
+![ai_ean13](ai_ean13_demo-01.jpg) 
