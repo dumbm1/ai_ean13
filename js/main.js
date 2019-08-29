@@ -93,6 +93,8 @@
         document.getElementById('message_elt').className = 'message message-hide';
       }());
 
+      _fitPanelToContent();
+
     });
 
     /** * * * * * * * * *
@@ -137,9 +139,11 @@
 
       if (settingsContentElem.className != 'settings-close') {
         settingsContentElem.className = 'settings-close';
+        _fitPanelToContent();
         return;
       }
       settingsContentElem.className = '';
+      _fitPanelToContent();
     };
 
     btnDefaults.onclick = function () {
@@ -288,6 +292,12 @@
 
   function deleteIni() {
     csInterface.evalScript('delIni()');
+  }
+
+  function _fitPanelToContent() {
+    setTimeout(function () {
+      csInterface.resizeContent(document.documentElement.scrollWidth, document.documentElement.scrollHeight);
+    }, 100);
   }
 
 }());

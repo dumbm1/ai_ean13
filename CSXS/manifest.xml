@@ -46,16 +46,16 @@
                     <Menu>ai_ean13_wk 2.5.1</Menu>
                     <Geometry>
                         <Size>
-                            <Height>295</Height>
-                            <Width>215</Width>
+                            <Height>305</Height>
+                            <Width>230</Width>
                         </Size>
                         <MinSize>
                             <Height>110</Height>
                             <Width>215</Width>
                         </MinSize>
                         <MaxSize>
-                            <Height>295</Height>
-                            <Width>220</Width>
+                            <Height>350</Height>
+                            <Width>300</Width>
                         </MaxSize>
                     </Geometry>
                     <Icons>
