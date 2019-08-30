@@ -124,14 +124,17 @@
       return;
     };
 
-    settingsTitleElem.onclick = function () {
+    settingsTitleElem.onclick = function (e) {
+      if (e.target.tagName != 'SPAN') return;
 
       if (settingsContentElem.className != 'settings-close') {
         settingsContentElem.className = 'settings-close';
+        writeIni(getPanOpts());
         _fitPanelToContent();
         return;
       }
       settingsContentElem.className = '';
+      writeIni(getPanOpts());
       _fitPanelToContent();
     };
 
@@ -141,8 +144,10 @@
         localStorage.clear();
         document.getElementById('code_val').value = '';
         document.getElementById('check_digit').innerHTML = 'X';
+        document.getElementById('sel_font').selectedIndex = 0;
         setPanOpts(opts);
-        reloadPanel();
+        writeIni(opts);
+        _fitPanelToContent();
       });
 
     };
@@ -190,7 +195,7 @@
       opts.chAddBg = false;
       opts.chNewLay = false;
 
-      opts.reduceVal = '0';
+      opts.reduceVal = 0.00;
       opts.layNameVal = '';
       opts.layNameDisabled = true;
       opts.fontName = '';

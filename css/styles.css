@@ -77,20 +77,12 @@ div {
  overflow      : hidden;
  }
 
-#btns_bott {
- margin-top : 4px;
- }
-
-#btn_gen {
- font-weight : bold;
- width       : 100%;
- }
-
 .slave-buttons {
  display        : flex;
  flex-direction : column;
  flex-wrap      : wrap;
  padding        : 0;
+ margin-top     : 5px;
  }
 
 #btn_save, #btn_defaults, #btn_refresh {
@@ -130,11 +122,6 @@ input[type=number] {
 .txt_fld {
  text-align : center;
  height     : 19px;
- }
-
-#code_val {
- width       : 100px;
- font-weight : bold;
  }
 
 #lay_name_val {
@@ -183,26 +170,51 @@ input[type=number] {
  }
 
 #enter_code_row {
+ display        : flex;
+ flex-direction : column;
+ flex-wrap      : wrap;
+ padding        : 0;
+ font-weight    : bold;
+ }
+
+#code_val {
+ width       : 70%;
  font-weight : bold;
  }
 
 #check_digit {
- margin : 0 0 0 4px;
+ width      : 10%;
+ text-align : center;
+ height     : 20px;
+ }
+
+#btn_gen {
+ width : 20%;
  }
 
 .settings-title {
- font-weight   : bold;
- margin        : 1px -15px 0 0;
- height        : 18px;
- width         : 195px;
- padding       : 2px 2px 0 0;
- border-bottom : 1px solid rgba(0, 0, 0, .4);
+ font-weight : bold;
+ margin      : 1px -15px 0 0;
+ height      : 18px;
+ width       : 195px;
+ padding     : 2px 2px 0 0;
+ /*border-bottom : 1px solid rgba(0, 0, 0, .4);*/
  }
 
-.settings-title:hover {
+.settings-title span:hover {
  cursor : pointer;
  }
 
 .settings-title span {
  margin-left : 4px;
+ }
+#settings{
+ border-top : 1px solid rgba(0, 0, 0, .4);
+ }
+
+#lay_name_val {
+ /*this dont work from style.css*/
+ width      : 123px !important;
+ text-align : left !important;
+ padding    : 0 4px !important;
  }
