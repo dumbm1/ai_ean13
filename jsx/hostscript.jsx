@@ -281,7 +281,7 @@ function writeIni(jsonStr) {
 
   function _addIni() {
 
-    var iniName              = 'ean13_v2-5',
+    var iniName              = 'ean13_v2-6-0',
         localStoreFolderPath = Folder.userData + '/LocalStore/',
         iniFolder,
         iniFile;
@@ -320,7 +320,7 @@ function readIni() {
 
   function _addIni() {
 
-    var iniName              = 'ean13_v2-5',
+    var iniName              = 'ean13_v2-6-0',
         localStoreFolderPath = Folder.userData + '/LocalStore/',
         iniFolder,
         iniFile;
@@ -334,7 +334,7 @@ function readIni() {
 }
 
 function delIni() {
-  var iniName              = 'ean13_v2-5',
+  var iniName              = 'ean13_v2-6-0',
       localStoreFolderPath = Folder.userData + '/LocalStore/',
       iniFolder            = new Folder(localStoreFolderPath + iniName),
       iniFile;

@@ -63,10 +63,6 @@ div {
  border : none;
  }
 
-.settings-close {
- display : none;
- }
-
 .hostButton {
  border        : 1px solid;
  border-radius : 2px;
@@ -192,23 +188,35 @@ input[type=number] {
  width : 20%;
  }
 
+.settings-close {
+ display : none;
+ }
+
 .settings-title {
  font-weight : bold;
  margin      : 1px -15px 0 0;
  height      : 18px;
- width       : 195px;
  padding     : 2px 2px 0 0;
- /*border-bottom : 1px solid rgba(0, 0, 0, .4);*/
+ display     : inline-block;
  }
 
-.settings-title span:hover {
+.settings-title:hover {
  cursor : pointer;
  }
 
 .settings-title span {
  margin-left : 4px;
  }
-#settings{
+
+.settings-title-span_open:before {
+ content : '– ';
+ }
+
+.settings-title-span_close:before {
+ content : '+ ';
+ }
+
+#settings {
  border-top : 1px solid rgba(0, 0, 0, .4);
  }
 

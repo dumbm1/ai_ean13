@@ -94,7 +94,6 @@
     digField.addEventListener('input', function (e) {
       lastCode.storeCurrentCode();
     });
-
     btnGen.onclick = function () {
       var opts;
       var digStr = document.getElementById('code_val').value;
@@ -125,15 +124,19 @@
     };
 
     settingsTitleElem.onclick = function (e) {
-      if (e.target.tagName != 'SPAN') return;
+      let titleSpan = document.querySelector('.settings-title-span');
 
       if (settingsContentElem.className != 'settings-close') {
         settingsContentElem.className = 'settings-close';
+        titleSpan.classList.remove('settings-title-span_open');
+        titleSpan.classList.add('settings-title-span_close');
         writeIni(getPanOpts());
         _fitPanelToContent();
         return;
       }
       settingsContentElem.className = '';
+      titleSpan.classList.remove('settings-title-span_close');
+      titleSpan.classList.add('settings-title-span_open');
       writeIni(getPanOpts());
       _fitPanelToContent();
     };
@@ -200,6 +203,7 @@
       opts.layNameDisabled = true;
       opts.fontName = '';
       opts.settingsDisplayClass = '';
+      opts.settingsTitleSpanClass = 'settings-title-span settings-title-span_open';
 
       return opts;
     }
@@ -219,6 +223,7 @@
       opts.fontName = selFont[selFont.selectedIndex].text;
 
       opts.settingsDisplayClass = document.getElementById('settings').className;
+      opts.settingsTitleSpanClass = document.querySelector('.settings-title-span').className;
 
       return opts;
     }
@@ -237,6 +242,7 @@
       _selectOptByText(opts.fontName, 'sel_font');
 
       document.getElementById('settings').className = opts.settingsDisplayClass;
+      document.querySelector('.settings-title-span').className = opts.settingsTitleSpanClass;
 
       function _selectOptByText(text, selectId) {
         var obj = document.getElementById(selectId).options;
