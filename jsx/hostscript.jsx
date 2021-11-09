@@ -255,13 +255,12 @@ function makeEan13(o) {
 
 }
 
-function postProcess(o, symbolName) {
+function postProcess(o) {
 
-  if (!selection.length) return;
-
-  var ch_center = o.chCenter,
-      ch_select = o.chSelect,
-      symbol    = activeDocument.groupItems.getByName(symbolName);
+  var ch_center  = o.chCenter,
+      ch_select  = o.chSelect,
+      symbolName = o.symbolName,
+      symbol     = activeDocument.groupItems.getByName(symbolName);
 
   if (ch_center == true) {
     executeMenuCommand('deselectall');

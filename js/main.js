@@ -106,9 +106,9 @@
           setTimeout(function () {
 
           }, 1000);
+          opts.symbolName = result;
 
-          // alert(typeof result + '\n' + result);
-          csInterface.evalScript('postProcess(' + JSON.stringify(opts) + ',' + result + ')');
+          csInterface.evalScript('postProcess(' + JSON.stringify(opts) + ')');
         });
       }
     };
@@ -295,8 +295,8 @@
 
   function _fitPanelToContent() {
     setTimeout(function () {
-      csInterface.resizeContent(document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-    }, 100);
+      csInterface.resizeContent(document.documentElement.offsetWidth, document.documentElement.offsetHeight);
+    }, 500);
   }
 
 }());
