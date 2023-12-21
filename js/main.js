@@ -94,6 +94,7 @@
     digField.addEventListener('input', function (e) {
       lastCode.storeCurrentCode();
     });
+
     btnGen.onclick = function () {
       var opts;
       var digStr = document.getElementById('code_val').value;
@@ -101,7 +102,14 @@
       if (digStr.length == 12) {
         opts = getPanOpts();
         opts.str = digStr + checkDigit.innerHTML;
-        csInterface.evalScript('makeEan13(' + JSON.stringify(opts) + ')');
+        csInterface.evalScript('makeEan13(' + JSON.stringify(opts) + ')', function (result) {
+          setTimeout(function () {
+
+          }, 1000);
+          opts.symbolName = result;
+
+          csInterface.evalScript('postProcess(' + JSON.stringify(opts) + ')');
+        });
       }
     };
 
@@ -183,7 +191,7 @@
         (i % 2 != 0) ? x += +str.slice(i, i + 1) : y += +str.slice(i, i + 1);
       }
       z = 3 * x + y;
-      (z % 10 == 0) ? checkDigit = 0 : checkDigit = (10 - (z + 10 ) % 10);
+      (z % 10 == 0) ? checkDigit = 0 : checkDigit = (10 - (z + 10) % 10);
       return checkDigit;
     }
 
@@ -287,8 +295,8 @@
 
   function _fitPanelToContent() {
     setTimeout(function () {
-      csInterface.resizeContent(document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-    }, 100);
+      csInterface.resizeContent(document.documentElement.offsetWidth, document.documentElement.offsetHeight);
+    }, 500);
   }
 
 }());

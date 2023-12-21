@@ -21,6 +21,7 @@ function makeEan13(o) {
 
   var encodeString,
       symbol,
+      symbolName,
       col          = new CMYKColor(),
       MM_TO_PT     = 2.834645669,
       PT_TO_MM     = 0.352777778,
@@ -41,25 +42,20 @@ function makeEan13(o) {
   _makeDigits(code, symbol);
 
   if (chAddBg == true) {
-    var rect = _makeRect(symbol.top, (-3.63 ) * MM_TO_PT, 37.29 * MM_TO_PT, 25.93 * MM_TO_PT/*symbol.height*/, symbol, 0, new CMYKColor());
+    var rect = _makeRect(symbol.top, (-3.63) * MM_TO_PT, 37.29 * MM_TO_PT, 25.93 * MM_TO_PT/*symbol.height*/, symbol, 0, new CMYKColor());
     rect.move(symbol, ElementPlacement.PLACEATEND);
     // rect.resize(100, 101, true, true, true, true, undefined, Transformation.CENTER);
     rect.stroked = false;
   }
 
-  if (ch_center == true) {
-    executeMenuCommand('deselectall');
-    symbol.selected = true;
-    cut();
-    paste();
-    if (ch_select == false) {
-      executeMenuCommand('deselectall');
-    }
-  }
-  if (ch_select == true && ch_center == false) {
-    executeMenuCommand('deselectall');
-    symbol.selected = true;
-  }
+  symbolName = '__code#' + code + '@' + makeRandStr(6) + '__';
+  symbol.name = symbolName;
+  // return encodeString;
+  return symbolName;
+
+  /**
+   * LIB
+   * */
 
   function _makeDigits(code, digGroup) {
     var digGr = digGroup.groupItems.add();
@@ -96,7 +92,7 @@ function makeEan13(o) {
       pntTxt.textRange.size = realFntSize;
       pntTxt.contents = o.cont;
       pntTxt.textRange.characterAttributes.fillColor = col;
-      pntTxt.textRange.characterAttributes.tracking = -100;
+      pntTxt.textRange.characterAttributes.tracking = -50;
 
       try {
         pntTxt.textRange.characterAttributes.textFont = textFonts.getByName(fntName);
@@ -126,11 +122,11 @@ function makeEan13(o) {
       }
 
       if (o.tune == true) {
-        while (calcCharSize(pntTxt).h > fntH) {
+        while (_calcCharSize(pntTxt).h > fntH) {
           realFntSize -= 0.1;
           pntTxt.textRange.size = realFntSize;
         }
-        realTop = startTop + calcCharSize(pntTxt).top;
+        realTop = startTop + _calcCharSize(pntTxt).top;
       }
 
       pntTxt.top = realTop;
@@ -227,7 +223,59 @@ function makeEan13(o) {
     return mirStr;
   }
 
-  return encodeString;
+  /**
+   * calculate top, bottom spasing and the real height of the capital characters
+   *
+   * @param {TextFrameItem} frame - object of the TextFrameItem class
+   * @return {Object} fntMeas - result object {h, top, bot, w}
+   */
+  function _calcCharSize(frame) {
+    var txt     = activeDocument.activeLayer.textFrames.add(),
+        fullH,
+        fntMeas = {};
+
+    txt.contents = frame.contents;
+    // txt.contents                               = 'C';
+    txt.textRange.characterAttributes.textFont = frame.textRange.characterAttributes.textFont;
+    txt.textRange.characterAttributes.size = frame.textRange.characterAttributes.size;
+
+    var txtCurv = (txt.duplicate()).createOutline();
+
+    fullH = txt.height;
+    fntMeas.h = txtCurv.height;
+    fntMeas.top = Math.abs(txt.position[1] - txtCurv.position[1]);
+    fntMeas.bot = (fullH - fntMeas.h - fntMeas.top);
+    fntMeas.w = txtCurv.w;
+
+    txt.remove();
+    txtCurv.remove();
+
+    return fntMeas;
+  }
+
+}
+
+function postProcess(o) {
+
+  var ch_center  = o.chCenter,
+      ch_select  = o.chSelect,
+      symbolName = o.symbolName,
+      symbol     = activeDocument.groupItems.getByName(symbolName);
+
+  if (ch_center == true) {
+    executeMenuCommand('deselectall');
+    symbol.selected = true;
+    cut();
+    paste();
+    if (ch_select == false) {
+      executeMenuCommand('deselectall');
+    }
+  }
+
+  if (ch_select == true && ch_center == false) {
+    executeMenuCommand('deselectall');
+    symbol.selected = true;
+  }
 }
 
 function getFonts(chr) {
@@ -235,41 +283,11 @@ function getFonts(chr) {
   for (var i = 0; i < textFonts.length; i++) {
     font[i] = {
       family: textFonts[i].family,
-      style : textFonts[i].style,
-      name  : textFonts[i].name
+      style: textFonts[i].style,
+      name: textFonts[i].name
     };
   }
   return JSON.stringify(font);
-}
-
-/**
- * calculate top, bottom spasing and the real height of the capital characters
- *
- * @param {TextFrameItem} frame - object of the TextFrameItem class
- * @return {Object} fntMeas - result object {h, top, bot, w}
- */
-function calcCharSize(frame) {
-  var txt     = activeDocument.activeLayer.textFrames.add(),
-      fullH,
-      fntMeas = {};
-
-  txt.contents = frame.contents;
-  // txt.contents                               = 'C';
-  txt.textRange.characterAttributes.textFont = frame.textRange.characterAttributes.textFont;
-  txt.textRange.characterAttributes.size = frame.textRange.characterAttributes.size;
-
-  var txtCurv = (txt.duplicate()).createOutline();
-
-  fullH = txt.height;
-  fntMeas.h = txtCurv.height;
-  fntMeas.top = Math.abs(txt.position[1] - txtCurv.position[1]);
-  fntMeas.bot = (fullH - fntMeas.h - fntMeas.top);
-  fntMeas.w = txtCurv.w;
-
-  txt.remove();
-  txtCurv.remove();
-
-  return fntMeas;
 }
 
 function writeIni(jsonStr) {
@@ -350,5 +368,9 @@ function delIni() {
   iniFolder.remove();
 
   return true;
+}
+
+function makeRandStr(len) {
+  return ('1' + (new Date()) * Math.random() * 10000).slice(0, len);
 }
 
