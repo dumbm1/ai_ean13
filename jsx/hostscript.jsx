@@ -92,7 +92,7 @@ function makeEan13(o) {
       pntTxt.textRange.size = realFntSize;
       pntTxt.contents = o.cont;
       pntTxt.textRange.characterAttributes.fillColor = col;
-      pntTxt.textRange.characterAttributes.tracking = -100;
+      pntTxt.textRange.characterAttributes.tracking = -50;
 
       try {
         pntTxt.textRange.characterAttributes.textFont = textFonts.getByName(fntName);
