@@ -1,4 +1,4 @@
-//encoding table: L R G; R = _mirror ( L ); G = _reverse ( _mirror ( L ) )
+/*//encoding table: L R G; R = _mirror ( L ); G = _reverse ( _mirror ( L ) )
 
 function makeEan13(o) {
 
@@ -42,7 +42,7 @@ function makeEan13(o) {
   _makeDigits(code, symbol);
 
   if (chAddBg == true) {
-    var rect = _makeRect(symbol.top, (-3.63) * MM_TO_PT, 37.29 * MM_TO_PT, 25.93 * MM_TO_PT/*symbol.height*/, symbol, 0, new CMYKColor());
+    var rect = _makeRect(symbol.top, (-3.63) * MM_TO_PT, 37.29 * MM_TO_PT, 25.93 * MM_TO_PT/!*symbol.height*!/, symbol, 0, new CMYKColor());
     rect.move(symbol, ElementPlacement.PLACEATEND);
     // rect.resize(100, 101, true, true, true, true, undefined, Transformation.CENTER);
     rect.stroked = false;
@@ -53,13 +53,13 @@ function makeEan13(o) {
   // return encodeString;
   return symbolName;
 
-  /**
+  /!**
    * LIB
-   * */
+   * *!/
 
   function _makeDigits(code, digGroup) {
     var digGr = digGroup.groupItems.add();
-    var startTop = -(BAR_H + 0.25) * MM_TO_PT /*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*/,
+    var startTop = -(BAR_H + 0.25) * MM_TO_PT /!*-(BAR_H + (BAR_SEP_H - BAR_H) / 3) * MM_TO_PT*!/,
         realTop  = startTop;
     var left_fr0 = -3 * MM_TO_PT;
     var startFntSize = 13,
@@ -86,7 +86,7 @@ function makeEan13(o) {
                              });
     }
 
-    function __addDig(o /*o.cont, o.leftPnt, o.justify, o.tune*/) {
+    function __addDig(o /!*o.cont, o.leftPnt, o.justify, o.tune*!/) {
       var pntTxt = digGr.textFrames.add();
 
       pntTxt.textRange.size = realFntSize;
@@ -223,12 +223,12 @@ function makeEan13(o) {
     return mirStr;
   }
 
-  /**
+  /!**
    * calculate top, bottom spasing and the real height of the capital characters
    *
    * @param {TextFrameItem} frame - object of the TextFrameItem class
    * @return {Object} fntMeas - result object {h, top, bot, w}
-   */
+   *!/
   function _calcCharSize(frame) {
     var txt     = activeDocument.activeLayer.textFrames.add(),
         fullH,
@@ -334,7 +334,7 @@ function readIni() {
   str = iniFile.read();
   iniFile.close();
 
-  return str /*JSON.stringify(str)*/;
+  return str /!*JSON.stringify(str)*!/;
 
   function _addIni() {
 
@@ -372,5 +372,5 @@ function delIni() {
 
 function makeRandStr(len) {
   return ('1' + (new Date()) * Math.random() * 10000).slice(0, len);
-}
+}*/
 

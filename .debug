@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <ExtensionList>
-    <Extension Id="com.wk.ai_ean13_wk">
+    <Extension Id="ai_ean13">
         <HostList>
            
             <!-- Comment Host tags according to the apps you want your panel to support -->
             
             <!-- Illustrator -->
-            <Host Name="ILST" Port="8081"/>
+            <Host Name="ILST" Port="8765"/>
                         
         </HostList>
     </Extension>
